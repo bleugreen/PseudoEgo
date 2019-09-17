@@ -15,6 +15,9 @@ detector = dlib.get_frontal_face_detector()
 def detectPresence(boolQ, camQ):
     while True:
         img = camQ.get()
+        while not camQ.empty():
+            print("skipping frame")
+            img = camQ.get()
         if img is None:
             break
         ratio = 2
@@ -40,7 +43,6 @@ def decodeVideo(vidQ, killQ, lower=30, upper=55):
     count = 0
     maxVal = len(frameList)
     print("Video Loaded")
-    print(maxVal)
     while True:
         try:
             temp = killQ.get_nowait()
@@ -112,7 +114,6 @@ def show_camera(sigma=0.33, lower=30, upper=55, mix=0.0, present = False, vidBoo
             else:
                 if mix > 0.0:
                      mix -= 0.08
-            print(mix)
             try:
                 frame = vidQ.get_nowait()
                 #a = np.double(edges)
@@ -123,7 +124,7 @@ def show_camera(sigma=0.33, lower=30, upper=55, mix=0.0, present = False, vidBoo
                 out = cv2.addWeighted(frame, 1-mix, edges, mix, 0)
                 cv2.imshow('test', out)
             except queue.Empty:
-                cv2.imshow('test', edges*mix)
+                cv2.imshow('test', gray)
             #cv2.imshow('test', edges*mix)
 
 	    # This also acts as 
