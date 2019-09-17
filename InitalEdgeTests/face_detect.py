@@ -7,7 +7,6 @@
 # Data files are in /usr/sharc/OpenCV
 import numpy as np
 import cv2
-from matplotlib import pyplot as plt
 
 # gstreamer_pipeline returns a GStreamer pipeline for capturing from the CSI camera
 # Defaults to 1280x720 @ 30fps 
