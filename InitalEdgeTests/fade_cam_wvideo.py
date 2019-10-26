@@ -30,13 +30,13 @@ def detectPresence(boolQ, camQ):
     print("detector daemon killed")
 
 def decodeVideo(vidQ, killQ, lower=30, upper=55):
-    cap = cv2.VideoCapture("wave.mp4")
+    cap = cv2.VideoCapture("bubs.mp4")
     frameList = []
     while cap.isOpened():
         ret, frame = cap.read()
         if ret:
-            edge = cv2.Canny(frame, lower, upper)
-            frameList.append(edge)
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            frameList.append(gray)
         else:
             break
     cap.release()
@@ -153,8 +153,8 @@ def show_camera(sigma=0.33, lower=30, upper=55, mix=0.0, present = False, vidBoo
         if vidBool:
             while True:
                 try:
-                    trash = vidQ.get_nowait()
                     time.sleep(0.01)
+                    trash = vidQ.get_nowait()
                 except queue.Empty:
                     print("done")
                     break
